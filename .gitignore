@@ -1,2 +1,4 @@
 .venv/
 local.sqlite3
+
+secret.yaml
