@@ -1,7 +1,7 @@
 import cklass
 from pathlib import Path
 
-from .config import Config
+from backend.settings.config import Config
 
 
 cklass.load_config(Config)
