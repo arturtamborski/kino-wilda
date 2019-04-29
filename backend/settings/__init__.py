@@ -27,7 +27,6 @@ USE_TZ           = True
 STATIC_URL       = '/static/'
 
 
-
 INSTALLED_APPS = (
     # django
     'django.contrib.auth',
