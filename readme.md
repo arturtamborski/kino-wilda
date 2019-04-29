@@ -16,31 +16,31 @@ It's not too advanced but serves as a good template / starting point for such ap
 
 
 - `/movies`
-    - `POST`
-      - `REQUEST`
-        - accepts movie title, fetches more info and saves to local DB.
-      - `RESPONSE`
-        - all info about given title
     - `GET`
       - `REQUEST`
         - empty
       - `RESPONSE`
         - returns list of all movies already present in application DB.
         - offers additional sorting and filtering trough parameters.
+    - `POST`
+      - `REQUEST`
+        - accepts movie title, fetches more info and saves to local DB.
+      - `RESPONSE`
+        - all info about given title
 
 
 - `/comments`
-    - `POST`
-      - `REQUEST`
-        - contains ID of movie already present in DB and the comment text.
-      - `RESPONSE`
-        - returns the comment.
     - `GET`
       - `REQUEST`
         - fetches list of all comments present in DB.
       - `RESPONSE`
         - returns list of all comments already present in application DB.
         - offers additional filtering trough parameters.
+    - `POST`
+      - `REQUEST`
+        - contains ID of movie already present in DB and the comment text.
+      - `RESPONSE`
+        - returns the comment.
 
 
 ### Examples
