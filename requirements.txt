@@ -1,0 +1,7 @@
+cklass
+pyyaml
+django
+djangorestframework
+gunicorn
+whitenoise
+dj-database-url
