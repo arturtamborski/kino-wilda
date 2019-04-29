@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from . import models
+from backend.api import models
 
 
 class Movie(serializers.ModelSerializer):
