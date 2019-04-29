@@ -5,3 +5,4 @@ djangorestframework
 gunicorn
 whitenoise
 dj-database-url
+django-annoying

@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from rest_framework.parsers import JSONParser
+from annoying.functions import get_object_or_None
 
 from backend.api import models
 from backend.api import serializers
@@ -28,10 +29,13 @@ def movies(request):
 
     data = JSONParser().parse(request)
     serializer = serializers.Movie(data=data)
-    if serializer.is_valid():
-        serializer.save()
-        return JsonResponse(serializer.data, status=201)
-    return JsonResponse(serializer.errors, status=400)
+
+    if not serializer.is_valid():
+        return JsonResponse(serializer.errors, status=400)
+
+    title = serializer.get('title')
+    obj = get_object_or_None(models.Movie, title__icontains=title)
+    return JsonResponse(serializers.Movie(data=obj if obj else {}, status=201))
 
 
 @csrf_exempt
@@ -44,7 +48,9 @@ def comments(request):
 
     data = JSONParser().parse(request)
     serializer = serializers.Movie(data=data)
-    if serializer.is_valid():
-        serializer.save()
-        return JsonResponse(serializer.data, status=201)
-    return JsonResponse(serializer.errors, status=400)
+
+    if not serializer.is_valid():
+        return JsonResponse(serializer.errors, status=400)
+
+    serializer.save()
+    return JsonResponse(serializer.data, status=201)
