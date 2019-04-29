@@ -2,3 +2,13 @@
 local.sqlite3
 
 secret.yaml
+
+*.log
+*.py[cod]
+__pycache__/
+media/
+*.mo
+docs/_build/
+
+# PyBuilder
+target/
