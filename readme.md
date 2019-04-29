@@ -49,17 +49,22 @@ It's not too advanced but serves as a good template / starting point for such ap
 
 ### How to run it?
 
-Simple way:
-```bash
+Preparation
+```
 git clone https://github.com/arturtamborski/kino-wilda
 cd kino-wilda
+cat secret.yaml
+config:
+  secret_key: 'your super secret key...'
+```
+
+Simple way:
+```bash
 make run
 ```
 
 Hard way:
 ```bash
-git clone https://github.com/arturtamborski/kino-wilda
-cd kino-wilda
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install -r requirements.txt
