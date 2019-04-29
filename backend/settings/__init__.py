@@ -1,14 +1,13 @@
-import os
 import cklass
+from pathlib import Path
 
 from .config import Config
 
 
-# load configuration from config.yaml and secret.yaml
 cklass.load_config(Config)
 
 
-BASE_DIR         = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR         = Path()
 
 
 DEBUG            = Config.DEBUG
@@ -60,6 +59,6 @@ MIDDLEWARE = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'local.sqlite3'),
+        'NAME': str(BASE_DIR / 'local.sqlite3'),
     }
 }
