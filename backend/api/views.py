@@ -23,34 +23,58 @@ def top(request):
 @require_http_methods(['GET', 'POST'])
 def movies(request):
     if request.method == 'GET':
-        model = models.Movie.objects.all()
-        serializer = serializers.Movie(model, many=True)
+        sort = request.GET.get('sort')
+        only = request.GET.get('only')
+
+        if only and only.split(',') in serializers.Movie.Meta.fields:
+            objs = models.Movie.objects.values_list(only)
+        else:
+            objs = models.Movie.objects.all()
+
+        if sort and sort in serializers.Movie.Meta.fields:
+            objs = objs.order_by(sort)
+
+        serializer = serializers.Movie(objs, many=True)
         return JsonResponse(serializer.data, safe=False)
 
     data = JSONParser().parse(request)
     serializer = serializers.Movie(data=data)
 
-    if not serializer.is_valid():
-        return JsonResponse(serializer.errors, status=400)
+    if serializer.is_valid(raise_exception=True):
+        title = serializer['title']
+        obj = get_object_or_None(models.Movie, title__icontains=title)
 
-    title = serializer.get('title')
-    obj = get_object_or_None(models.Movie, title__icontains=title)
-    return JsonResponse(serializers.Movie(data=obj if obj else {}, status=201))
+        if obj:
+            return JsonResponse(serializers.Movie(data=obj, status=201))
+
+        # not present in db, need to fetch it
+        print('fetching from external db...')
+
 
 
 @csrf_exempt
 @require_http_methods(['GET', 'POST'])
 def comments(request):
     if request.method == 'GET':
-        model = models.Comment.objects.all()
-        serializer = serializers.Comment(model, many=True)
+        sort = request.GET.get('sort')
+        only = request.GET.get('only')
+
+        if only and only.split(',') in serializers.Comment.Meta.fields:
+            objs = models.Comment.objects.values_list(only)
+        else:
+            objs = models.Comment.objects.all()
+
+        if sort and sort in serializers.Comment.Meta.fields:
+            objs = objs.order_by(sort)
+
+        serializer = serializers.Comment(objs, many=True)
         return JsonResponse(serializer.data, safe=False)
 
     data = JSONParser().parse(request)
-    serializer = serializers.Movie(data=data)
+    serializer = serializers.Comment(data=data)
 
-    if not serializer.is_valid():
-        return JsonResponse(serializer.errors, status=400)
-
-    serializer.save()
-    return JsonResponse(serializer.data, status=201)
+    if serializer.is_valid(raise_exception=True):
+        movie_id = serializer['id']
+        text = serializer['text']
+        serializer.save()
+        return JsonResponse(serializer.data, status=201)
