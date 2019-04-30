@@ -6,10 +6,10 @@ from backend.api import models
 class Movie(serializers.ModelSerializer):
     class Meta:
         model = models.Movie
-        fields = ('id', 'title', 'plot', 'year')
+        fields = '__all__'
 
 
 class Comment(serializers.ModelSerializer):
     class Meta:
         model = models.Comment
-        fields = ('id', 'text')
+        fields = '__all__'
