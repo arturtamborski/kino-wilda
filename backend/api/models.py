@@ -4,7 +4,7 @@ from backend.api import querysets
 
 
 class Movie(models.Model):
-    title   = models.CharField(max_length=200, primary_key=True, unique=True)
+    title   = models.CharField(max_length=200, unique=True)
     year    = models.PositiveSmallIntegerField()
     plot    = models.TextField()
 
