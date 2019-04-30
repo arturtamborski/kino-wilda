@@ -16,5 +16,6 @@ class Movie(models.Model):
 
 class Comment(models.Model):
     text    = models.CharField(max_length=200)
+    date    = models.DateField()
 
     objects = querysets.Comment.as_manager()
