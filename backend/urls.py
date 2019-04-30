@@ -4,6 +4,6 @@ from backend.api import views
 
 urlpatterns = [
     path('top/', views.top),
-    path('movies/', views.movies),
-    path('comments/', views.comments),
+    path('movies/', views.Movie.as_view()),
+    path('comments/', views.Comment.as_view()),
 ]
