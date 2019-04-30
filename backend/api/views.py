@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from django.db.models import F, Count
 
 from rest_framework import parsers
 from rest_framework import generics
@@ -12,11 +13,15 @@ from backend.api import serializers
 @csrf_exempt
 @require_http_methods(['GET'])
 def top(request):
-    objs = models.Movie.objects.all()
+    objs = models.Movie.objects \
+        .values(movie_id=F('id')) \
+        .annotate(total_comments=Count('comment')) \
+        .order_by('-total_comments')
     serializer = serializers.Movie(objs, many=True)
 
+    # todo: should be done in SQL/ORM
     for idx, data in enumerate(serializer.data):
-        data['position'] = idx + 1
+        data['rank'] = idx + 1
 
     return JsonResponse(serializer.data, safe=False)
 
