@@ -3,6 +3,8 @@ local.sqlite3
 
 secret.yaml
 
+migrations/
+
 *.log
 *.py[cod]
 __pycache__/
