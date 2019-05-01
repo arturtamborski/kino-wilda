@@ -4,8 +4,8 @@ Simple Movie App
 This is a demo of a simple REST API written in `Python` with `Django` and `djangorestframework`.
 It's not too advanced but serves as a good template / starting point for such applications.
 
-### List of endpoints
 
+### List of endpoints
 
 - `/top`
     - `GET`
@@ -46,27 +46,18 @@ It's not too advanced but serves as a good template / starting point for such ap
 ### Examples
 
 
+### How to get help?
+
+```bash
+make
+
+# or...
+make help
+```
+
 
 ### How to run it?
 
-Preparation
-```
-git clone https://github.com/arturtamborski/kino-wilda
-cd kino-wilda
-cat secret.yaml
-config:
-  secret_key: 'your super secret key...'
-```
-
-Simple way:
 ```bash
 make run
-```
-
-Hard way:
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install -r requirements.txt
-python3 manage.py runserver
 ```
