@@ -3,7 +3,7 @@ all: # run all targets required to start application locally
 .PHONY: all
 
 help: # show help and quit
-	@egrep '^\w' $(lastword $(MAKEFILE_LIST)) | awk -F: '{printf("%20s\t%s\n", $$1, substr($$2,4))}'
+	@egrep '^\w' $(lastword $(MAKEFILE_LIST)) | awk -F: '{printf("%20s - %s\n", $$1, substr($$2,4))}'
 .PHONY: help
 
 prepare: # create virtualenv, install requirements
@@ -17,16 +17,16 @@ run: # run the application locally
 	source .venv/bin/activate && python3 manage.py runserver
 .PHONY: run
 
-clear-migrations:
+remove-migrations: # remove all migrations
 	-find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
 	-find . -path "*/migrations/*.pyc" -delete
-.PHONY: clear-migrations
+.PHONY: remove-migrations
 
-make-migrations:
+migrations: # make migrations and and migrate them
 	python manage.py makemigrations
 	python manage.py migrate
-.PHONY: make-migrations
+.PHONY: migrations
 
-clear-database:
+remove-database: # remove local database
 	-rm local.sqlite3
-.PHONY: clear-database
+.PHONY: remove-database
