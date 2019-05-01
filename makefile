@@ -1,10 +1,10 @@
-all: # run all targets required to start application locally
-	@echo Done
-.PHONY: all
-
 help: # show help and quit
 	@egrep '^\w' $(lastword $(MAKEFILE_LIST)) | awk -F: '{printf("%20s - %s\n", $$1, substr($$2,4))}'
 .PHONY: help
+
+all: # run all targets required to start application locally
+	@echo Done
+.PHONY: all
 
 prepare: # create virtualenv, install requirements
 	-rm -r .venv
