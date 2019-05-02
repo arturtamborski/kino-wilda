@@ -12,4 +12,4 @@ class Movie(serializers.ModelSerializer):
 class Comment(serializers.ModelSerializer):
     class Meta:
         model = models.Comment
-        fields = '__all__'
+        exclude = ('date',)
