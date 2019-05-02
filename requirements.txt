@@ -1,7 +1,11 @@
-cklass
 pyyaml
+cklass
+
+requests
+
 django
 djangorestframework
+djangorestframework-stubs
+
 gunicorn
-whitenoise
 dj-database-url
