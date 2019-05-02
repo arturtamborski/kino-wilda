@@ -59,5 +59,5 @@ make help
 ### How to run it?
 
 ```bash
-make run
+make all
 ```

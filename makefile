@@ -5,7 +5,7 @@ help: # show help and quit
 
 
 
-all: prepare migrations run # run all targets required to start application locally
+all: prepare migrations tests run # run all targets required to start application locally
 	@echo Done
 
 .PHONY: all
