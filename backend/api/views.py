@@ -76,7 +76,7 @@ class Movie(generics.ListCreateAPIView):
             }
 
             self.model_class(**json).save()
-        return JsonResponse(data=json, status=200)
+        return JsonResponse(data=json, status=201)
 
 
 class Comment(generics.ListCreateAPIView):
@@ -86,7 +86,7 @@ class Comment(generics.ListCreateAPIView):
     parser_classes = (parsers.JSONParser,)
 
     def get(self, request, *args, **kwargs):
-        movie_id = request.GET.get('movie_id', None)
+        movie_id = request.GET.get('movie_id')
 
         if movie_id:
             objects = self.model_class.objects.filter(movie_id=movie_id)
