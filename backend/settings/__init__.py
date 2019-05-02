@@ -62,3 +62,9 @@ DATABASES = {
         'NAME': str(BASE_DIR / 'local.sqlite3'),
     }
 }
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [],
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+}
