@@ -125,4 +125,4 @@ if not Config.DEBUG:
 
     WHITENOISE_USE_FINDERS = True
 
-    ALLOWED_HOSTS = ['.herokuapp.com']
+    ALLOWED_HOSTS = ['kino-wilda.herokuapp.com']
