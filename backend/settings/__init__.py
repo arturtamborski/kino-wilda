@@ -33,7 +33,11 @@ APPEND_SLASH     = True
 STATIC_ROOT      = str(BASE_DIR / 'staticfiles')
 STATIC_URL       = '/static/'
 STATICFILES_STORAGE = \
-    'django.contrib.staticfiles.storage.StaticFilesStorage'
+    'whitenoise.django.GzipManifestStaticFilesStorage'
+
+STATICFILES_DIRS = [
+    str(BASE_DIR, 'static'),
+]
 
 os.makedirs(STATIC_ROOT, exist_ok=True)
 
@@ -79,6 +83,7 @@ REST_FRAMEWORK = {
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -120,4 +125,4 @@ if not Config.DEBUG:
     DATABASES['default'] = dj_database_url.config(
         conn_max_age=600, ssl_require=True)
 
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ['.herokuapp.com']
