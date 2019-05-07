@@ -30,15 +30,13 @@ USE_TZ           = True
 APPEND_SLASH     = True
 
 
-STATIC_ROOT      = str(BASE_DIR / 'staticfiles')
 STATIC_URL       = '/static/'
+STATIC_ROOT      = str(BASE_DIR / 'static')
+
 STATICFILES_STORAGE = \
     'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATICFILES_DIRS = [
-    str(BASE_DIR / 'static'),
-]
-
+# create the dirs
 os.makedirs(STATIC_ROOT, exist_ok=True)
 
 
