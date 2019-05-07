@@ -33,7 +33,7 @@ APPEND_SLASH     = True
 STATIC_ROOT      = str(BASE_DIR / 'staticfiles')
 STATIC_URL       = '/static/'
 STATICFILES_STORAGE = \
-    'whitenoise.django.GzipManifestStaticFilesStorage'
+    'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATICFILES_DIRS = [
     str(BASE_DIR / 'static'),
@@ -124,5 +124,7 @@ if not Config.DEBUG:
 
     DATABASES['default'] = dj_database_url.config(
         conn_max_age=600, ssl_require=True)
+
+    WHITENOISE_USE_FINDERS = True
 
     ALLOWED_HOSTS = ['.herokuapp.com']
