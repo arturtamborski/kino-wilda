@@ -5,6 +5,8 @@ requests
 
 # server
 gunicorn
+whitenoise
+dj-static
 dj-database-url
 psycopg2-binary
 
