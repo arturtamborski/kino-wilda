@@ -1,11 +1,15 @@
-pyyaml
+# python
 cklass
-
+pyyaml
 requests
 
-django
-djangorestframework
-djangorestframework-stubs
-
+# server
 gunicorn
 dj-database-url
+psycopg2-binary
+
+# django
+django
+django-heroku
+djangorestframework
+djangorestframework-stubs
