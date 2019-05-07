@@ -4,6 +4,8 @@ Simple Movie App
 This is a demo of a simple REST API written in `Python` with `Django` and `djangorestframework`.
 It's not too advanced but serves as a good template / starting point for such applications.
 
+https://kino-wilda.herokuapp.com/
+
 
 ### List of endpoints
 
