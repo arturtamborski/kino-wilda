@@ -1,5 +1,5 @@
 # python
-cklass
+cklass==0.0.7
 pyyaml
 requests
 
