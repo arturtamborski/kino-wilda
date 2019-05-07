@@ -1,11 +1,12 @@
 help: # show help and quit
-	@egrep '^\w' makefile | sed 's/:.*#/#/g' | awk -F'#' '{printf("%20s -%s\n", $$1, $$2)}'
+	@perl -ne '/^([A-Za-z0-9-_]+):.*#\s+(.*)/ && \
+		printf "%*s%s\n", 23, $$1, $$2 ? " - $$2" : ""' makefile
 
 .PHONY: help
 
 
 
-all: prepare migrations tests run # run all targets required to start application locally
+all: prepare migrations tests run-local # run all targets required to start application locally
 	@echo Done
 
 .PHONY: all
@@ -29,29 +30,29 @@ tests: # run all tests
 
 
 
-run: # run the application locally
+run-local: # run the application locally
 	source .venv/bin/activate && python3 manage.py runserver
 
-.PHONY: run
+.PHONY: run-local
 
 
 
-remove-migrations: # remove all migrations
+remove-local-migrations: # remove all local migrations
 	-find ./backend/ -path "*/migrations/*.py" -not -name "__init__.py" -delete
 	-find ./backend/ -path "*/migrations/*.pyc" -delete
 
-.PHONY: remove-migrations
+.PHONY: remove-local-migrations
 
 
 
-migrations: # make migrations and and migrate them
+local-migrations: # make migrations and and migrate them
 	source .venv/bin/activate && python3 manage.py makemigrations
 	source .venv/bin/activate && python3 manage.py migrate
 
-.PHONY: migrations
+.PHONY: local-migrations
 
 
 
-remove-database: # remove local database
+remove-local-database: # remove local database
 	-rm local.sqlite3
-.PHONY: remove-database
+.PHONY: remove-local-database
