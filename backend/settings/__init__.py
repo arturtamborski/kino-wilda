@@ -36,7 +36,7 @@ STATICFILES_STORAGE = \
     'whitenoise.django.GzipManifestStaticFilesStorage'
 
 STATICFILES_DIRS = [
-    str(BASE_DIR, 'static'),
+    str(BASE_DIR / 'static'),
 ]
 
 os.makedirs(STATIC_ROOT, exist_ok=True)
