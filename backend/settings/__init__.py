@@ -1,5 +1,8 @@
+import os
 import cklass
 from pathlib import Path
+
+import dj_database_url
 
 from backend.settings.config import Config
 
@@ -24,11 +27,18 @@ TIME_ZONE        = 'UTC'
 USE_I18N         = True
 USE_L10N         = True
 USE_TZ           = True
-STATIC_URL       = '/static/'
 APPEND_SLASH     = True
 
 
-INSTALLED_APPS = (
+STATIC_ROOT      = str(BASE_DIR / 'staticfiles')
+STATIC_URL       = '/static/'
+STATICFILES_STORAGE = \
+    'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+os.makedirs(STATIC_ROOT, exist_ok=True)
+
+
+INSTALLED_APPS = [
     # django
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,10 +51,10 @@ INSTALLED_APPS = (
 
     # apps
     'backend.api',
-)
+]
 
 
-MIDDLEWARE = (
+MIDDLEWARE = [
     # django
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,7 +63,7 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
 
 
 DATABASES = {
@@ -68,3 +78,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [],
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
+
+
+if not Config.DEBUG:
+    MIDDLEWARE.insert(0, 'whitenoise.middleware.WhiteNoiseMiddleware')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    DATABASES['default'] = dj_database_url.config(
+        conn_max_age=600, ssl_require=True)
+
+    ALLOWED_HOSTS = ['*']
